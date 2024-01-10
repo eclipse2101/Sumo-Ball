@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyCount == 0) 
         {
             SpawnEnemyWave(WaveNumber);
-            Instantiate(powerupPrefab, GenerateSpawnArea(), powerupPrefab.transform.rotation);
+           
         }
     }
 

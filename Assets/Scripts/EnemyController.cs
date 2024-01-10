@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
         badGuyRb.AddForce( lookDirection * speed);
        
+       
         if (transform.position.y < bottomBound)
         {
            Destroy(gameObject); // destorys prefabs
