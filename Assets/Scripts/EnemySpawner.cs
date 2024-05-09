@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
    public GameObject enemies;
    public float spawnarea = 10;
    public int enemyCount;
+   public int itemCount; 
    public int WaveNumber = 1; 
    public GameObject powerupPrefab;
  
@@ -15,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         SpawnEnemyWave(3);
-        
+        SpawnPowerUp(2); 
     }
 
     // Update is called once per frame
@@ -32,6 +33,13 @@ public class EnemySpawner : MonoBehaviour
        for (int i = 0; i < enemiesSpawnNumber; i++)
        {
           Instantiate(enemies, GenerateSpawnArea(), enemies.transform.rotation);
+       }
+    }
+
+    void SpawnPowerUp(int powerupSpawnNumber)
+    {
+       for (int i = 0; i < powerupSpawnNumber; i++)
+       {
           Instantiate(powerupPrefab, GenerateSpawnArea(), powerupPrefab.transform.rotation);
        }
     }
@@ -39,9 +47,16 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
        enemyCount = FindObjectsOfType<EnemyController>().Length;
+       itemCount = FindObjectsOfType<itemDespawner>().Length;
         if (enemyCount == 0) 
         {
             SpawnEnemyWave(WaveNumber);
+           WaveNumber = WaveNumber + 1; 
+        }
+         
+         if (itemCount == 0) 
+        {
+            SpawnPowerUp(WaveNumber);
            
         }
     }
