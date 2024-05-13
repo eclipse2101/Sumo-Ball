@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
    public GameObject enemies;
+   public GameObject enemies2;
    public float spawnarea = 10;
    public int enemyCount;
    public int itemCount; 
@@ -32,6 +33,11 @@ public class EnemySpawner : MonoBehaviour
     {
        for (int i = 0; i < enemiesSpawnNumber; i++)
        {
+          if(WaveNumber >= 5)
+          {
+            Instantiate(enemies2, GenerateSpawnArea(), enemies.transform.rotation);
+          }
+          
           Instantiate(enemies, GenerateSpawnArea(), enemies.transform.rotation);
        }
     }
@@ -56,8 +62,7 @@ public class EnemySpawner : MonoBehaviour
          
          if (itemCount == 0) 
         {
-            SpawnPowerUp(WaveNumber);
-           
+            SpawnPowerUp(3);  
         }
     }
 

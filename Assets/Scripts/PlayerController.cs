@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
     public bool GotPowerUp;
      Rigidbody playerRb; 
      GameObject focalpoint; 
-     public float PowerUpStrength = 15.0f; 
+     public float PowerUpStrength = 20.0f; 
+     public float Health = 3;
      public GameObject PowerupIndicator; 
+     public GameObject PowerupIndicator2; 
 
     
     // Start is called before the first frame update
@@ -25,6 +27,21 @@ public class PlayerController : MonoBehaviour
       float vertical = Input.GetAxis("Vertical"); 
       playerRb.AddForce(focalpoint.transform.forward * speed * vertical); 
       PowerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+      PowerupIndicator2.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+
+      ///// health system/////
+      if(transform.position.y < -5)
+      {
+        if(Health > 0)
+        {
+          transform.position = new Vector3(0,0,0);
+          Health--; 
+        }
+        else
+        {
+          Debug.Log("Game over! you suck lil nigga");
+        }
+      }
     }
 
     void OnTriggerEnter(Collider other)

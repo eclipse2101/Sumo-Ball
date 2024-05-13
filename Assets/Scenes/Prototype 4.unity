@@ -697,8 +697,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: {fileID: 1644558636587586503, guid: 62e33c143184b42f4838cb2d7210ab81, type: 3}
+  enemies2: {fileID: 8966980463282188142, guid: 5dd4ebe1ba9744fc1bd4865acedb3b85,
+    type: 3}
   spawnarea: 10
   enemyCount: 0
+  itemCount: 0
   WaveNumber: 1
   powerupPrefab: {fileID: 7480746347266162425, guid: fcdb9c88e4c814595a16b32e765a5a66,
     type: 3}
@@ -733,6 +736,12 @@ PrefabInstance:
       propertyPath: PowerupIndicator
       value: 
       objectReference: {fileID: 2002952947}
+    - target: {fileID: 1053659938046006884, guid: df05e0c1e8fe2433b8b6e0f6be97f533,
+        type: 3}
+      propertyPath: PowerupIndicator2
+      value: 
+      objectReference: {fileID: 1758629138285362, guid: 11a653b9169986c4f9436a3002fb4516,
+        type: 3}
     - target: {fileID: 1053659938046006887, guid: df05e0c1e8fe2433b8b6e0f6be97f533,
         type: 3}
       propertyPath: m_RootOrder
