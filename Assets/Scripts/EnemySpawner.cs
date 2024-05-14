@@ -10,14 +10,13 @@ public class EnemySpawner : MonoBehaviour
    public int enemyCount;
    public int itemCount; 
    public int WaveNumber = 1; 
-   public GameObject powerupPrefab;
- 
+   public GameObject[] powerupPrefabs;
    
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemyWave(3);
-        SpawnPowerUp(2); 
+        SpawnPowerUp(3); 
     }
 
     // Update is called once per frame
@@ -46,7 +45,9 @@ public class EnemySpawner : MonoBehaviour
     {
        for (int i = 0; i < powerupSpawnNumber; i++)
        {
-          Instantiate(powerupPrefab, GenerateSpawnArea(), powerupPrefab.transform.rotation);
+         int randomPoweup = Random.Range(0, powerupPrefabs.Length);
+          Instantiate(powerupPrefabs[randomPoweup], GenerateSpawnArea(), powerupPrefabs[randomPoweup].transform.rotation);
+          
        }
     }
 

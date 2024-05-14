@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public float speed; 
     public bool GotPowerUp;
+    public bool GotWeapon;
+    public bool GotExplosion; 
      Rigidbody playerRb; 
      GameObject focalpoint; 
      public float PowerUpStrength = 20.0f; 
@@ -41,6 +43,14 @@ public class PlayerController : MonoBehaviour
         {
           Debug.Log("Game over! you suck lil nigga");
         }
+        ///////WEAPON UP SYSTEM/////////// 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+          if(GotExplosion == true)
+          {
+            Debug.Log("kaboom");
+          }
+        }
       }
     }
 
@@ -53,14 +63,29 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(PowerupCountdownLoop());
         PowerupIndicator.gameObject.SetActive(true);  
       }
+      
+      if (other.CompareTag("Explosion Power Up"))
+      {
+        GotExplosion= true; 
+        Destroy(other.gameObject);
+        PowerupIndicator2.gameObject.SetActive(true); 
+        StartCoroutine(ExplosionCountdownLoop());
+      }
     }
-
+     
      IEnumerator PowerupCountdownLoop()
      {
         yield return new WaitForSeconds(7);
         GotPowerUp = false;
         PowerupIndicator.gameObject.SetActive(false);  
      }   
+
+     IEnumerator ExplosionCountdownLoop()
+     {
+        yield return new WaitForSeconds(7);
+        GotExplosion= false;
+        PowerupIndicator2.gameObject.SetActive(false);  
+     }
 
     void OnCollisionEnter(Collision collision)
     {
