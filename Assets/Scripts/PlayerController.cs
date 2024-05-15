@@ -8,13 +8,17 @@ public class PlayerController : MonoBehaviour
     public bool GotPowerUp;
     public bool GotWeapon;
     public bool GotExplosion; 
+    public bool gameOver; 
      Rigidbody playerRb; 
      GameObject focalpoint; 
      public float PowerUpStrength = 20.0f; 
      public float Health = 3;
+     public float explosionPower;
+     public float explosionRadius; 
+     public float upwardsMod; 
      public GameObject PowerupIndicator; 
      public GameObject PowerupIndicator2; 
-
+     
     
     // Start is called before the first frame update
     void Start()
@@ -42,13 +46,14 @@ public class PlayerController : MonoBehaviour
         else
         {
           Debug.Log("Game over! you suck lil nigga");
+          gameOver = true; 
         }
         ///////WEAPON UP SYSTEM/////////// 
         if (Input.GetKeyDown(KeyCode.Space))
         {
           if(GotExplosion == true)
           {
-            Debug.Log("kaboom");
+            //playerRb.AddForce(focalpoint.transform.Up);
           }
         }
       }
@@ -66,10 +71,14 @@ public class PlayerController : MonoBehaviour
       
       if (other.CompareTag("Explosion Power Up"))
       {
-        GotExplosion= true; 
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i<enemies.Length; i++)
+        {
+          enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionPower, transform.position, explosionRadius, upwardsMod, ForceMode.Impulse);
         Destroy(other.gameObject);
-        PowerupIndicator2.gameObject.SetActive(true); 
-        StartCoroutine(ExplosionCountdownLoop());
+        Debug.Log("kaboom");
+        }
+        
       }
     }
      
@@ -80,13 +89,14 @@ public class PlayerController : MonoBehaviour
         PowerupIndicator.gameObject.SetActive(false);  
      }   
 
+     /*
      IEnumerator ExplosionCountdownLoop()
      {
         yield return new WaitForSeconds(7);
         GotExplosion= false;
         PowerupIndicator2.gameObject.SetActive(false);  
      }
-
+     */
     void OnCollisionEnter(Collision collision)
     {
       Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();

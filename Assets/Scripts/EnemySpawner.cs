@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-   public GameObject enemies;
-   public GameObject enemies2;
+   public GameObject[] enemies;
    public float spawnarea = 10;
    public int enemyCount;
    public int itemCount; 
    public int WaveNumber = 1; 
+   public int BossWave = 5;
    public GameObject[] powerupPrefabs;
+   private PlayerController PC;
    
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemyWave(3);
         SpawnPowerUp(3); 
+        PC = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -34,10 +36,13 @@ public class EnemySpawner : MonoBehaviour
        {
           if(WaveNumber >= 5)
           {
-            Instantiate(enemies2, GenerateSpawnArea(), enemies.transform.rotation);
+            int randomEnemy = Random.Range(0, 1);
+            Instantiate(enemies[randomEnemy], GenerateSpawnArea(), enemies[randomEnemy].transform.rotation);
           }
-          
-          Instantiate(enemies, GenerateSpawnArea(), enemies.transform.rotation);
+          else
+          {
+            Instantiate(enemies[0], GenerateSpawnArea(),enemies[0].transform.rotation);
+          }
        }
     }
 
@@ -55,7 +60,8 @@ public class EnemySpawner : MonoBehaviour
     {
        enemyCount = FindObjectsOfType<EnemyController>().Length;
        itemCount = FindObjectsOfType<itemDespawner>().Length;
-        if (enemyCount == 0) 
+       
+        if (enemyCount == 0 && PC.gameOver == false) 
         {
             SpawnEnemyWave(WaveNumber);
            WaveNumber = WaveNumber + 1; 
@@ -65,6 +71,12 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnPowerUp(3);  
         }
+
+         if(WaveNumber == BossWave)
+          {
+            Instantiate(enemies[2], GenerateSpawnArea(), enemies[2].transform.rotation);
+            BossWave = BossWave + 5;
+          }
     }
 
 }
