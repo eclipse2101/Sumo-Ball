@@ -18,13 +18,17 @@ public class PlayerController : MonoBehaviour
      public float upwardsMod; 
      public GameObject PowerupIndicator; 
      public GameObject PowerupIndicator2; 
-     
+     private AudioSource playerAudio;
+     public AudioClip ExplosionSound; 
+     public AudioClip PowerupSfx;
+     public AudioClip PowerDownSfx;
     
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         focalpoint = GameObject.Find("focus point");
+       playerAudio = GetComponent<AudioSource>();   
     }
 
     // Update is called once per frame
@@ -66,7 +70,8 @@ public class PlayerController : MonoBehaviour
         GotPowerUp = true;
         Destroy(other.gameObject);
         StartCoroutine(PowerupCountdownLoop());
-        PowerupIndicator.gameObject.SetActive(true);  
+        PowerupIndicator.gameObject.SetActive(true); 
+        playerAudio.PlayOneShot(PowerupSfx, 1.0f); 
       }
       
       if (other.CompareTag("Explosion Power Up"))
@@ -76,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
           enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionPower, transform.position, explosionRadius, upwardsMod, ForceMode.Impulse);
         Destroy(other.gameObject);
-        Debug.Log("kaboom");
+        playerAudio.PlayOneShot(ExplosionSound, 1.0f);
         }
         
       }
@@ -87,13 +92,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(7);
         GotPowerUp = false;
         PowerupIndicator.gameObject.SetActive(false);  
+        playerAudio.PlayOneShot(PowerDownSfx, 1.0f); 
      }   
 
      /*
-     IEnumerator ExplosionCountdownLoop()
+     IEnumerator WeaponCountdownLoop()
      {
         yield return new WaitForSeconds(7);
-        GotExplosion= false;
+        GotWeapon = false;
         PowerupIndicator2.gameObject.SetActive(false);  
      }
      */

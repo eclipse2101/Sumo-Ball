@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemyWave(3);
+        SpawnEnemyWave(1);
         SpawnPowerUp(3); 
         PC = GameObject.Find("Player").GetComponent<PlayerController>();
     }
