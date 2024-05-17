@@ -1464,6 +1464,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1053659938046006884, guid: df05e0c1e8fe2433b8b6e0f6be97f533,
         type: 3}
+      propertyPath: Health
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053659938046006884, guid: df05e0c1e8fe2433b8b6e0f6be97f533,
+        type: 3}
       propertyPath: PowerupSfx
       value: 
       objectReference: {fileID: 8300000, guid: 079498da4454f49b4bfead5cbb196837, type: 3}
