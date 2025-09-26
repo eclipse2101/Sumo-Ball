@@ -50,8 +50,8 @@ public class EnemySpawner : MonoBehaviour
     {
        for (int i = 0; i < powerupSpawnNumber; i++)
        {
-         int randomPoweup = Random.Range(0, powerupPrefabs.Length);
-          Instantiate(powerupPrefabs[randomPoweup], GenerateSpawnArea(), powerupPrefabs[randomPoweup].transform.rotation);
+            int randomPoweup = Random.Range(0, powerupPrefabs.Length);
+            Instantiate(powerupPrefabs[randomPoweup], GenerateSpawnArea(), powerupPrefabs[randomPoweup].transform.rotation);
           
        }
     }
@@ -61,10 +61,26 @@ public class EnemySpawner : MonoBehaviour
        enemyCount = FindObjectsOfType<EnemyController>().Length;
        itemCount = FindObjectsOfType<itemDespawner>().Length;
        
-        if (enemyCount == 0 && PC.gameOver == false) 
+        if (enemyCount == 0 && PC.gameOver == false) //checks if the game is still running 
         {
-            SpawnEnemyWave(WaveNumber);
-           WaveNumber = WaveNumber + 1; 
+            //does a check if the next wave is a boss wave
+            WaveNumber = WaveNumber + 1;
+
+            if (WaveNumber == BossWave)
+            {
+                //Adds a boss as part of the number of enenmies in the wave if true 
+                Instantiate(enemies[2], GenerateSpawnArea(), enemies[2].transform.rotation);
+                SpawnEnemyWave(WaveNumber - 1);
+                
+                BossWave = BossWave + 5;
+                
+            }
+            else
+            {
+                SpawnEnemyWave(WaveNumber);
+                //WaveNumber = WaveNumber + 1; 
+            }
+            
         }
          
          if (itemCount == 0) 
@@ -72,11 +88,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnPowerUp(3);  
         }
 
-         if(WaveNumber == BossWave)
-          {
-            Instantiate(enemies[2], GenerateSpawnArea(), enemies[2].transform.rotation);
-            BossWave = BossWave + 5;
-          }
+         
     }
 
 }

@@ -9,26 +9,26 @@ public class PlayerController : MonoBehaviour
     public bool GotWeapon;
     public bool GotExplosion; 
     public bool gameOver; 
-     Rigidbody playerRb; 
-     GameObject focalpoint; 
-     public float PowerUpStrength = 20.0f; 
-     public float Health = 3;
-     public float explosionPower;
-     public float explosionRadius; 
-     public float upwardsMod; 
-     public GameObject PowerupIndicator; 
-     public GameObject PowerupIndicator2; 
-     private AudioSource playerAudio;
-     public AudioClip ExplosionSound; 
-     public AudioClip PowerupSfx;
-     public AudioClip PowerDownSfx;
+    Rigidbody playerRb; 
+    GameObject focalpoint; 
+    public float PowerUpStrength = 20.0f; 
+    public float Health = 3;
+    public float explosionPower;
+    public float explosionRadius; 
+    public float upwardsMod; 
+    public GameObject PowerupIndicator; 
+    public GameObject PowerupIndicator2; 
+    private AudioSource playerAudio;
+    public AudioClip ExplosionSound; 
+    public AudioClip PowerupSfx;
+    public AudioClip PowerDownSfx;
     
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         focalpoint = GameObject.Find("focus point");
-       playerAudio = GetComponent<AudioSource>();   
+        playerAudio = GetComponent<AudioSource>();   
     }
 
     // Update is called once per frame
@@ -77,11 +77,11 @@ public class PlayerController : MonoBehaviour
       if (other.CompareTag("Explosion Power Up"))
       {
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for(int i = 0; i<enemies.Length; i++)
+        for(int i = 0; i < enemies.Length; i++)
         {
-          enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionPower, transform.position, explosionRadius, upwardsMod, ForceMode.Impulse);
-        Destroy(other.gameObject);
-        playerAudio.PlayOneShot(ExplosionSound, 1.0f);
+            enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionPower, transform.position, explosionRadius, upwardsMod, ForceMode.Impulse);
+            Destroy(other.gameObject);
+            playerAudio.PlayOneShot(ExplosionSound, 1.0f);
         }
         
       }
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
       
       if (collision.gameObject.CompareTag("Enemy") && GotPowerUp)
       {
-        Debug.Log("Collided with" + collision.gameObject.name + "with power set to" + GotPowerUp);
+        //Debug.Log("Collided with" + collision.gameObject.name + "with power set to" + GotPowerUp);
         enemyRigidbody.AddForce(awayFromPlayer * PowerUpStrength, ForceMode.Impulse);
       }
     }

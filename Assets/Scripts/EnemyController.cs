@@ -7,7 +7,8 @@ public class EnemyController : MonoBehaviour
     public float speed; 
     Rigidbody badGuyRb; 
     GameObject player; 
-    float bottomBound = -5; 
+    float bottomBound = -5;
+    float sideBound = 25;
     
     
     
@@ -26,7 +27,7 @@ public class EnemyController : MonoBehaviour
         badGuyRb.AddForce( lookDirection * speed);
        
        
-        if (transform.position.y < bottomBound)
+        if (transform.position.y < bottomBound || (transform.position.z > sideBound || transform.position.z < -sideBound) || (transform.position.x > sideBound || transform.position.x < -sideBound))
         {
            Destroy(gameObject); // destorys prefabs
         }
