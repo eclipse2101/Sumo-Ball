@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-          Debug.Log("Game over! you suck lil nigga");
+          Debug.Log("Game over! you suck lil bro");
           gameOver = true; 
         }
         ///////WEAPON UP SYSTEM/////////// 
